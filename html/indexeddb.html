@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+	<!-- <script src="main.js"></script> -->
+</head>
+
+<body>
+	<script>
+		var myDB = {
+			name: 'testDB',
+			version: '1',
+			db: null
+		}
+		openDB(myDB, function() {
+
+		})
+		setTimeout(() => {
+			addData(myDB.db)
+		}, 2000);
+		// 新建indexedDB
+		function openDB(db, callback) {
+			var request = window.indexedDB.open(db.name, db.version)
+			request.onerror = function (e) {}
+			request.onsuccess = function (e) {
+				db.db = e.target.result
+				callback && callback()
+			}, 
+ 			// 用来监听db版本的变化包括数据库的建立
+ 			request.onupgradeneeded	= function (e) {
+				 console.log(e.target.result)
+				// 没有表的概念
+				// 创建ObjectStore存储对象，
+				// 一个数据库可以有多个存储对象
+				// 事务是用来数据操作的核心概念，它需要和ObjectStore关联
+				var store = e.target.result.createObjectStore('books', {
+					keyPath: 'isbn'
+				})
+				// 创建索引
+				var titleIndex = store.createIndex('by_title', 'title', {
+					unique: true
+				})
+				var authorIndex = store.createIndex('by_author', 'author', {
+					unique: true
+				})
+				// 存放数据
+				store.put({
+					title: 'memories',
+					author: 'Frced',
+					isbn: '21231'
+				})
+				store.put({
+					title: 'memoriesaa',
+					author: 'Frbed',
+					isbn: '212311111111'
+				})
+				store.put({
+					title: 'water',
+					author: 'Fraed',
+					isbn: '21231111'
+				})
+			}
+		}
+		function addData(db) {
+			// 新建事务
+			var transaction = db.transaction('books', 'readwrite')
+			var store = transaction.objectStore('books')
+			// 获取数据
+ 			var req = store.get('21231111')
+			req.onsuccess = function(e) {
+				console.log(e.target.result)
+			}
+			// 添加数据
+			store.add({
+				title: 'Flower',
+				author: 'aaaa',
+				isbn: '111111'
+			})
+			// 删除数据
+			store.delete('21231111')
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
+    <title>test</title>
+    <style type="text/css" media="screen">
+        html,
+        body {
+            height: 100%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            height: 30px;
+            border-bottom: 1px solid #ddd;
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+        #container {
+            overflow: auto;
+            height: 100vh+120;
+        }
+
+        .scroller .load-more {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            width: 100%;
+            background-color: #f1f1f1;
+        }
+
+        .scroller .loading {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            width: 100%;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="scroller">
+        <div class="loading">
+            下拉刷新数据
+        </div>
+        <ul class="content">
+            <li><a href="#">列表数据1</a></li>
+            <li><a href="#">列表数据2</a></li>
+            <li><a href="#">列表数据3</a></li>
+            <li><a href="#">列表数据4</a></li>
+            <li><a href="#">列表数据5</a></li>
+            <li><a href="#">列表数据6</a></li>
+            <li><a href="#">列表数据7</a></li>
+            <li><a href="#">列表数据8</a></li>
+            <li><a href="#">列表数据9</a></li>
+            <li><a href="#">列表数据10</a></li>
+            <li><a href="#">列表数据11</a></li>
+            <li><a href="#">列表数据12</a></li>
+            <li><a href="#">列表数据1</a></li>
+            <li><a href="#">列表数据2</a></li>
+            <li><a href="#">列表数据3</a></li>
+            <li><a href="#">列表数据4</a></li>
+            <li><a href="#">列表数据5</a></li>
+            <li><a href="#">列表数据6</a></li>
+            <li><a href="#">列表数据7</a></li>
+            <li><a href="#">列表数据8</a></li>
+            <li><a href="#">列表数据9</a></li>
+            <li><a href="#">列表数据10</a></li>
+            <li><a href="#">列表数据11</a></li>
+            <li><a href="#">列表数据12</a></li>
+             <li><a href="#">列表数据7</a></li>
+            <li><a href="#">列表数据8</a></li>
+            <li><a href="#">列表数据9</a></li>
+            <li><a href="#">列表数据10</a></li>
+            <li><a href="#">列表数据11</a></li>
+            <li><a href="#">列表数据12</a></li>
+        </ul>
+        <div class="load-more">
+            上拉加载更多
+        </div>
+    </div>
+    <script src="../js/pullRefresh.js"></script>
+    <script src="../js/pullLoad.js"></script>
+    <!-- <script src="../js/pullRefresh.js"></script> -->
+    <!--<script src="../js/pullRefresh.js"></script>-->
+    <!--<script src="../js/originpull.js"></script>-->
+    <script>
+        // document.getElementById('container').addEventListener('scroll', function() {
+        // console.log(document.getElementById('container').scrollTop)
+        // })  
+
+        var pullrefresh = new pullRefresh({
+            container: '#container',
+            delay: 1,
+            beforeLoadingText: '下拉刷新',
+            loadingText: '正在加载中...',
+            remindText: '松手刷新',
+            callback: function () {
+                var that = this;
+                setTimeout(function () {
+                    console.log('发大发')
+                    that.back();
+                }, 4000)
+            }
+        });
+        var pullload = new pullLoad({
+            container: '#container',
+            delay: 1,
+            beforeLoadingText: '上拉加载更多',
+            loadingText: '正在加载中...',
+            remindText: '松手加载更多',
+            callback: function () {
+                var that = this;
+                setTimeout(function () {
+                    console.log('发大发')
+                    that.loadmoreBack();
+                }, 4000)
+            }
+        });
+        pullrefresh.init();
+        pullload.init();
+    </script>
+</body>
+
+</html>

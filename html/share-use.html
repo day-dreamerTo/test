@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<input id="shareButton" type="button" value="分享">
+<script type="text/javascript" src="./lib/jquery-1.8.2.min.js"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //Create Author:SuJunHui
+    //Create Time  :2018-07-23 10:11
+    //Description  :分享对象
+    window.__shareInfo = {baseUrl:"https://vrhd.m.autohome.com.cn"};
+    window.__shareInfo={
+        title:"奇瑞狂欢购车季，逛展厅，赢大礼！",//分享title
+        desc:"激情夏日奇瑞狂欢购车季盛大开启，0花费，千元大奖拿回家！",//分享描述
+        shareLogo: __shareInfo.baseUrl + "/static/activity/daodian/qirui/img/share_icon.png",//分享logo
+        wxShareUrl: __shareInfo.baseUrl + "/activity/daodian/qirui/index?dealerId=" + $("#dealerid").val(),//微信分享链接
+        nativeShareUrl: __shareInfo.baseUrl + "/activity/daodian/qirui/index?dealerId=" + $("#dealerid").val(),//原生分享链接
+        shareSuccessCallBack:null,//分享成功后的回调函数，不回调则默认为Null
+        nativeTitle:"逛奇瑞展厅，赢好礼！",//原生title,不设置则默认为当前页面title
+        shareButton:"#shareButton" //h5分享按钮id
+    };
+
+    window.loadScript=function(url, callback) {
+        var p = document.createElement('script');
+        p.src = url;
+        p.charset = "gb2312";
+        p.type="text/javascript";
+        p.onload = p.onreadystatechange = function () {
+
+            var readyState = p.readyState;
+
+            if (/loaded|complete/.test(readyState) || 'undefined' == typeof readyState) {
+                try {
+                    callback&&callback();
+                } finally {
+                    p.onload = p.onreadystatechange = null;
+                }
+            }
+        };
+
+        document.getElementsByTagName('head')[0].appendChild(p);
+    }
+</script>
+<!-- <script src="//x.autoimg.cn/dealer/creativity/activity/daodian/js/share.js?t=${timestamp}"></script> -->
+<script type="text/javascript" src="./js/share.js"></script>
+<script type="text/javascript">
+
+    if (jc.app.isAutoHome == false && jc.app.isAutoPrice == false) {
+        if (jc.app.isWeixin == true) {
+            $(__shareInfo.shareButton).unbind('click');
+            $("#shareTrap").attr("src", "/static/activity/daodian/qirui/img/receive-gift-btn2.png");
+        } else {
+            $(__shareInfo.shareButton)
+                    .attr('data-share-title', __shareInfo.title)
+                    .attr('data-share-url', __shareInfo.nativeShareUrl)
+                    .attr('data-share-description', __shareInfo.desc)
+                    .attr('data-share-img', __shareInfo.shareLogo);
+            loadScript("//s.autoimg.cn/mass/mass-2.1.22.min.js");
+        }
+    }
+    else {
+        setTimeout(function () {
+            $(__shareInfo.shareButton).unbind('click').bind('click', function () {
+                h5ToNativeShare(__shareInfo);
+            })
+        }, 500);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
+    <style type="text/css">
+        body {
+
+            background-image: url("img/sakura.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+
+        }
+
+        .main {
+            width: 90%;
+            margin: 10px auto;
+        }
+
+        .box {
+            float: left;
+            margin: 20px 120px;
+        }
+
+        .top {
+            width: 310px;
+            padding: 10px 20px;
+            background-color: beige;
+            color: aqua;
+            font-weight: bold;
+        }
+
+        .content {
+            background: white;
+            height: 470px;
+        }
+
+        select {
+            border: 2px solid #ccc;
+            background: white;
+            width: 350px;
+            height: 470px;
+            padding: 10px;
+        }
+
+        .send {
+            width: 310px;
+            background: cadetblue;
+            padding: 10px 20px;
+        }
+
+        .sendtext {
+            height: 25px;
+            width: 220px;
+            font-size: 15px;
+        }
+
+        .btn {
+            width: 65px;
+            height: 30px;
+            float: right;
+            font-size: 18px;
+            background-color: gold;
+            color: white;
+            text-align: center;
+
+        }
+
+        option {
+            font-size: 15px;
+            height: auto;
+            padding: 10px;
+            margin: 10px;
+            background: aquamarine;
+            margin-left: 15px;
+            margin-right: 10px max-width:310px;
+            max-bottom: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //给按钮绑定点击事件
+            $('#leftsendbtn').bind("click", sendmsgLeft);
+            $('#rightsendbtn').bind("click", sendmsgRight);
+            //点击A君的发送按钮
+            function sendmsgLeft() {
+                //先获取用户输入的内容
+                var txt = $("#lefttext").val();
+
+                //生成标签option
+                var option = $("<option></option>");
+                //2.1生成的标签样式
+                var len = txt.length;
+                option.css("width", len * 15 + "px");
+                option.css("marginLeft", 350 - len * 15 - 60 + "px");
+
+                //2.2生成标签里面的内容
+                option.html(txt);
+                //向页面追加生成的标签(左侧)
+                $("#leftcontent").append(option);
+                //追加生成的标签(右侧)
+                var option1 = $("<option></option>");
+                option1.css("width", len * 15 + "px");
+                option1.css("marginLeft", "10px");
+                option1.css("background", "gray");
+
+                option1.html(txt);
+                $("#rightcontent").append(option1);
+
+                //输入的内容生成标签后，需要清空文本
+                $(".sendtext").val("");
+            }
+
+            function sendmsgRight() {
+                //先获取用户输入的内容
+                var txt = $("#righttext").val();
+
+                //生成标签option
+                var option = $("<option></option>");
+                //2.1生成的标签样式
+                var len = txt.length;
+                option.css("width", len * 15 + "px");
+                option.css("marginLeft", 350 - len * 15 - 60 + "px");
+
+                //2.2生成标签里面的内容
+                option.html(txt);
+                //向页面追加生成的标签(右侧)
+                $("#rightcontent").append(option);
+                //追加生成的标签(左侧)
+                var option1 = $("<option></option>");
+                option1.css("width", len * 15 + "px");
+                option1.css("marginLeft", "10px");
+                option1.css("background", "gray");
+                option1.html(txt);
+                $("#leftcontent").append(option1);
+
+                //输入的内容生成标签后，需要清空文本
+                $(".sendtext").val("");
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="box">
+            <div class="chat">
+                <div class="top">
+                    <span>A君</span>
+                </div>
+                <div class="content">
+                    <select multiple="multiple" id="leftcontent">
+
+                    </select>
+                </div>
+                <div class="send">
+                    <input type="text" id="lefttext" class="sendtext">
+                    <input type="button" id="leftsendbtn" class="btn" value="发送">
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="box">
+            <div class="chat">
+                <div class="top">
+                    <span>B君</span>
+                </div>
+                <div class="content">
+                    <select multiple="multiple" id="rightcontent">
+
+                    </select>
+                </div>
+                <div class="send">
+                    <input type="text" id="righttext" class="sendtext">
+                    <input type="button" id="rightsendbtn" class="btn" value="发送">
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

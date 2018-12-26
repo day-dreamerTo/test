@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test-css</title>
+    <style>
+        section {
+            display: flex;
+            height: calc(100vh - 50vh);
+            border: 1px solid #000;
+            border-color: red green blue pink;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .test-cursor {
+            width: 100px;
+            height: 100px;
+            background: green;
+            cursor: url('../img/1.jpg') 10 10, pointer;
+            filter: drop-shadow(5px 5px 10px black);
+        }
+
+        .test-shadow {
+            /*box-shadow: 0 8px 10px gray, -10px 8px 15px gray, 10px 8px 15px gray*/
+        }
+
+        .test-current-color:hover {
+            color: red;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 16px;
+            height: 20px;
+            background-color: currentColor;
+        }
+
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 30px solid #000;
+        }
+
+        .arrow-down {
+
+        }
+
+        @keyframes bounce {
+            60%, 80%, to {
+                transform: translateY(400px);
+                animation-timing-function: ease;
+            }
+            70% {
+                transform: translateY(300px);
+            }
+            90% {
+                transform: translateY(360px);
+            }
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: auto;
+            background: rgba(0, 100, 100, 0.5);
+            animation: bounce 2s cubic-bezier(.58, .13, .94, .64) 3;
+        }
+
+        #frame {
+            width: 50px;
+            height: 72px;
+            border: 1px solid transparent;
+            background: url(https://s.cdpn.io/79/sprite-steps.png) no-repeat left top;
+            animation: frame-animation 1s steps(5) infinite;
+        }
+
+        @keyframes frame-animation {
+            0% {
+                background-position: 0px 0;
+            }
+            100% {
+                background-position: -500px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="test-cursor test-shadow">
+
+    </div>
+    <div>
+        <a href="##" class="test-current-color"><i class="icon"></i>返回</a>
+    </div>
+    <div>
+        <input type="text">
+    </div>
+    <div class="arrow-up"></div>
+    <div class="arrow-down"></div>
+    <div class="ball"></div>
+    <div id="frame"></div>
+</section>
+<script type="text/javascript" src="../js/test.js"></script>
+</body>
+</html>
