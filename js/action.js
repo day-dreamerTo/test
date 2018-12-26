@@ -156,6 +156,10 @@ const Actions = [{
 			hsla: color2
 		},
 		{
+			text: 'N',
+			hsla: color2
+		},
+		{
 			text: 'G',
 			hsla: color2
 		}
